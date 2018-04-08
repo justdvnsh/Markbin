@@ -1,18 +1,22 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Header from './components/header';
-import {Bins} from '../imports/collections/bins'
+import {Bins} from '../imports/collections/bins';
+import BinsList from './components/bins/bins_list'
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import App from './components/app';
+import BinsDetail from './components/bins/bins_detail'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="container-fluid">
-        <Header />
-      </div>
-    )
-  }
-};
+
+const routes = (
+  <BrowserRouter>
+    <Switch>
+        <Route exact path="/" component={App} />
+        <Route path="/bins/:binsId" component={BinsDetail} />
+    </Switch>
+  </BrowserRouter>
+)
 
 Meteor.startup(() => {
-  ReactDOM.render(<App /> , document.querySelector('#my-render-area'))
+  ReactDOM.render(routes, document.querySelector('#my-render-area'))
 })

@@ -8,7 +8,22 @@ Meteor.methods({
       sharedWith: [],
       ownerId: this.userId
     });
+  },
+
+  'bins.remove': function(bin) {
+    return Bins.remove(bin);
+  },
+
+  'bins.update': function(bin, content) {
+    return Bins.update(bin._id, { $set: { content } })
+  },
+
+  'bins.share': function(bin, email) {
+    return Bins.update(bin._id, { $push: { sharedWith: email } })
   }
+
+  // push method is used to push to a existing array or object instead of removeing the whole and adding again.
+
 });
 
 
